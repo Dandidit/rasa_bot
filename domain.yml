@@ -1,0 +1,65 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+entities:
+- time
+
+slots:
+  time:
+    type: categorical
+    values:
+      - morning
+      - noon
+      - night
+    mappings:
+      - type: from_entity
+        entity: time
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you? Is it morning at your place?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_ask_time:
+  - condition:
+      - type: slot
+        name: time
+        value: morning
+    text: "Good morning to you too!"
+  - condition:
+      - type: slot
+        name: time
+        value: noon
+    text: "It's quite the noon you're having!"
+  - condition:
+      - type: slot
+        name: time
+        value: night
+    text: "I bet the night is quite lovely there!"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
