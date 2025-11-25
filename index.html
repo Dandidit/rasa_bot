@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rasa Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Inter, Arial, sans-serif; margin: 0; padding: 0; }
+    header { padding: 20px; background: #0b5cff10; border-bottom: 1px solid #eee; }
+    main { padding: 28px; max-width: 900px; margin: 0 auto; }
+    .card { padding: 18px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); background: white; }
+    .title { font-size: 20px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Rasa Chatbot Demo</strong>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="title">Demo assistant</div>
+      <p>Below is the embedded Rasa chat widget. Use the assistant to show intents, slot filling, and actions.</p>
+
+      <!-- Rasa Webchat widget -->
+      <div id="rasa-webchat"></div>
+    </div>
+  </main>
+
+  <!-- Rasa Webchat script from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@rasahq/rasa-webchat/lib/index.min.js"></script>
+  <script>
+    // Replace with your public Rasa endpoint. Example: https://abcd-1234.ngrok.io
+    const RASA_SERVER = "https://<YOUR_RASA_URL>";
+
+    // Initialize the widget
+    window.WebChat.default.init({
+      selector: "#rasa-webchat",
+      initPayload: "/greet",
+      customData: { language: "en" },
+      socketUrl: RASA_SERVER,
+      socketPath: "/socket.io/",
+      showMessageDate: true,
+      title: "Demo Assistant",
+      subtitle: "Rasa demo",
+      reconnect: true,
+      params: { // optional rest fallback
+        storage: "local"
+      }
+    });
+  </script>
+</body>
+</html>
